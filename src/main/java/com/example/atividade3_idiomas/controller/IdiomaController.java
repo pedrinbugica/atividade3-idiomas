@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/idiomas")
@@ -23,4 +24,23 @@ public class IdiomaController {
     public List<IdiomaResponseDTO> listar() {
         return idiomaService.listar();
     }
+
+    @GetMapping("/{id}")
+    public IdiomaResponseDTO buscarPorId(@PathVariable UUID id) {
+        return idiomaService.buscarPorId(id);
+    }
+    @PutMapping("/{id}")
+    public IdiomaResponseDTO alterar(@RequestBody IdiomaRequestDTO idiomaRequestDTO, @PathVariable UUID id) {
+        return idiomaService.alterar(id, idiomaRequestDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public void excluir(@PathVariable UUID id) {
+        idiomaService.excluir(id);
+    }
+    @GetMapping("/{id}/pessoas")
+    public List<String> listarPessoas(@PathVariable UUID id) {
+      return idiomaService.listarPessoasDoIdioma(id);
+    }
 }
+
