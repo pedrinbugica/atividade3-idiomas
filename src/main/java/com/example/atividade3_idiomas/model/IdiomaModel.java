@@ -16,6 +16,7 @@ public class IdiomaModel {
     @GeneratedValue(generator = "UUID")
     private UUID id;
 
+    @Column(unique = true)
     private String nome;
 
     @ManyToMany(mappedBy = "idiomaModels")
