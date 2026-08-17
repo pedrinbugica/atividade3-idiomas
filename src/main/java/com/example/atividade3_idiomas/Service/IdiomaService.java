@@ -3,6 +3,7 @@ package com.example.atividade3_idiomas.Service;
 import com.example.atividade3_idiomas.dto.idioma.IdiomaRequestDTO;
 import com.example.atividade3_idiomas.dto.idioma.IdiomaResponseDTO;
 import com.example.atividade3_idiomas.model.IdiomaModel;
+import com.example.atividade3_idiomas.model.PessoaModel;
 import com.example.atividade3_idiomas.repository.IIdiomaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -65,5 +66,13 @@ public class IdiomaService {
 
         }
         idiomaRepository.delete(idiomaModel);
+    }
+
+    public List<String> listarPessoasDoIdioma(UUID id) {
+        IdiomaModel idioma = idiomaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("idioma não existe"));
+
+        return idioma.getPessoa().stream().map(PessoaModel::getNome).toList();
+
     }
 }
